@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Controller = require("../controller/controller")
 
-router.get('/')
-router.get('/home')
+router.get('/', Controller.home)
+router.get('/home', Controller.directHome)
 router.get('/signup')
 router.get('/login')
 

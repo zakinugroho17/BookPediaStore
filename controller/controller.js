@@ -1,6 +1,24 @@
 const {Book,BooksHasCategories, Categories,Profile,User} = require('../models/index')
 const {Op} = require('sequelize')
 class Controller{
+    static async home(req, res) {
+        try {
+            res.redirect('/home')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async directHome(req, res) {
+        try {
+            res.render('home')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
     static async showBook(req,res){
         try {
             let data = await Book.findAll({
