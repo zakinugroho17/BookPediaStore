@@ -11,7 +11,7 @@ class Controller{
                 },
                 order : [["id", "ASC"]]
             })
-            res.render('showBook', {data})
+            res.render('showBookAdmin', {data})
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -86,6 +86,7 @@ class Controller{
         try {
             let dataBook = await Book.findAll();
             let dataCategories = await Categories.findAll()
+            // res.send(dataCategories)
 
             res.render('bookCategory',{dataBook,dataCategories})
         } catch (error) {
@@ -96,7 +97,9 @@ class Controller{
 
     static async postBookCategories(req,res){
         try {
-            
+            const {id} = req.params
+            const {title,categoriesName} = req.body
+            res.redirect('/book')
         } catch (error) {
             console.log(error);
             res.send(error);

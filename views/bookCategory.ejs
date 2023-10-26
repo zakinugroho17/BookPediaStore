@@ -9,27 +9,22 @@
     <form action="/book/add/categories" method="post">
         <label for="">Add Categories</label>
         <select name="categoriesName" id="">
-            <option value="Horror">Horror</option>
-            <option value="Comedy">Comedy</option>
-            <option value="Action">Action</option>
-            <option value="Historical">Historical</option>
-            <option value="Romantis">Romantis</option>
-            <option value="Realistic Fiction">Realistic Fiction</option>
-            <option value="Motivate">Motivate</option>
+            <% dataCategories.forEach(el =>{ %>
+                <option value="<%= el.id  %>"><%= el.categoriesName %></option>
+          <%  }) %>
         </select>
         <br>
         <br>
-        <label for="">Title Book</label>
-        <input type="text" name="title">
+        <label for="">Book list</label>
+        <select name="BookId" id="">
+            <% dataBook.forEach(el => { %>
+                <option value="<%= el.id  %>"><%=el.title  %></option>
+            <%}) %>
+        </select>
+
         <br>
-        <label for="">Total Stock</label>
-        <input type="text" name="stock">
         <br>
-        <label for="">Price Book</label>
-        <input type="text" name="book">
-        <br>
-        <label for="">Book Picture</label>
-        <input type="text" name="title">
+        <button>Submit</button>
     </form>
 </body>
 </html>
