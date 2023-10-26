@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Book List</h1>
+    <a href="/book/add"><button style="color: brown;">Add New Book</button></a>
+    <a href="/book/add/categories"><button style="color: brown;">Add New Categories</button></a>
+
+    <br>
+    <br>
+    <a href=""><button style="color: rgb(51, 19, 230);">BEST SELER BOOK</button></a>
+    <a href="/book/soldlist"><button style="color: rgb(189, 21, 21);">SOLD BOOK LIST</button></a>
+
+    <table border="2">
+    <tr>
+        <th>Title Book</th>
+        <th>Total Stock</th>
+        <th>Price Book</th>
+        <th>Book Picture</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    <% data.forEach(el =>{ %>
+        <tr>
+            <td><%= el.title  %></td>
+            <td><%= el.stock  %></td>
+            <td><%= el.formatRupiah  %></td>
+            <td><img src="<%= el.image  %>" alt="" style="width: 70px; height: 70px;"></td>
+            <td><%= el.status  %></td>
+            <td>
+                <a href="/book/buy/<%= el.id  %>"><button>Buy</button></a>
+            </td>
+        </tr>
+    <% }) %>
+</table>
+</body>
+</html>

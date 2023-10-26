@@ -1,0 +1,44 @@
+[
+    {
+    "title": "Doraemon",
+    "stock": "10",
+    "price" : 50000,
+    "image": "https://www.bukukita.com/babacms/displaybuku/98788_f.jpg",
+    "status": "Available"
+    },
+    {
+    "title": "Conjuring",
+    "stock": "30",
+    "price" : 70000,
+    "image": "https://images.tokopedia.net/img/cache/250-square/VqbcmM/2023/6/8/4dab184e-aef7-4005-885b-81896f5276e2.jpg?ect=4g",
+    "status": "Available"
+    },
+    {
+    "title": "Doraemon",
+    "stock": "10",
+    "price" : 50000,
+    "image": "https://www.bukukita.com/babacms/displaybuku/98788_f.jpg",
+    "status": "Available"
+    },
+    {
+    "title": "Naruto",
+    "stock": "10",
+    "price" : 50000,
+    "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//90/MTA-40232654/brd-44261_original-naruto-48-buku-komik-anak_full01.jpg",
+    "status": "Available"
+    },
+    {
+    "title": "Detektif Conan",
+    "stock": "10",
+    "price" : 50000,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618024056i/57681179.jpg",
+    "status": "Available"
+    },
+    {
+    "title": "Business Dari 0",
+    "stock": "10",
+    "price" : 50000,
+    "image": "https://www.bukukita.com/babacms/displaybuku/100047_f.jpg",
+    "status": "Available"
+    }
+  ]

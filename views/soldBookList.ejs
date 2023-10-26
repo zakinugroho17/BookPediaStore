@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Sold Book List</h1>
+
+    <a href="/book"><button style="color: rgb(4, 255, 0); background-color: black;">Book Page</button></a>
+    <table border="1">
+    <tr>
+        <th>Title Book</th>
+        <th>Total Stock</th>
+        <th>Price Book</th>
+        <th>Book Picture</th>
+        <th>Status</th>
+    </tr>
+
+    <% data.forEach(el =>{ %>
+        <tr>
+            <td><%= el.title  %></td>
+            <td><%= el.stock  %></td>
+            <td><%= el.price  %></td>
+            <td><img src="<%= el.image  %>" alt="" style="width: 70px; height: 70px;"></td>
+            <td><%= el.status = "Not Available" %></td>
+            
+        </tr>
+    <% }) %>
+</table>
+</body>
+</html>
