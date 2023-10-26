@@ -7,7 +7,13 @@
 </head>
 <body>
     <h1> Add Book </h1>
-    <form action="/book/add" method="post">
+    <% if(errors){ %>
+        <% errors.forEach(error => { %>
+    <p style="color: red;"><%= error %></p>
+       <% })  %>
+        
+   <% } %>
+    <form action="/admin/books/add" method="post">
         <label for="">Title</label>
         <input type="text" name="title">
         <br>

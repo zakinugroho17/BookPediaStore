@@ -7,17 +7,13 @@
 </head>
 <body>
     <h1>Book List</h1>
-    <% if (deleteMsg){ %>
-        <p style="color: red;"> <%= deleteMsg %></p>
-   <% } %>
-    <a href="/admin/books/add"><button style="color: brown;">Add New Book</button></a>
 
-
-    <br>
-    <br>
-    <a href=""><button style="color: rgb(51, 19, 230);">BEST SELER BOOK</button></a>
+    <% if (buyMsg){ %>
+        <p style="color: rgb(3, 202, 62)"><%= buyMsg  %></p>
+    <% } %>
+    
     <a href="/books/soldlist"><button style="color: rgb(189, 21, 21);">SOLD BOOK LIST</button></a>
-
+    <br>
     <table border="2">
     <tr>
         <th>Title Book</th>
@@ -36,8 +32,8 @@
             <td><img src="<%= el.image  %>" alt="" style="width: 70px; height: 70px;"></td>
             <td><%= el.status  %></td>
             <td>
-                <a href="/admin/books/edit/<%= el.id  %>"><button style="color: blue;">Edit</button></a>
-                <a href="/admin/books/delete/<%= el.id %>"><button style="color: red;">Delete</button></a>
+                <a href="/books/buy/<%= el.id  %>"><button style="color: green;">Buy</button></a>
+                <a href=""><button style="color: blue;">Detail</button></a>
             </td>
         </tr>
     <% }) %>

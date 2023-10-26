@@ -6,9 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/book/add/categories" method="post">
+    <form action="/admin/categories/add" method="post">
         <label for="">Add Categories</label>
-        <select name="categoriesName" id="">
+        <select name="CategoriesId" id="">
             <% dataCategories.forEach(el =>{ %>
                 <option value="<%= el.id  %>"><%= el.categoriesName %></option>
           <%  }) %>
@@ -16,7 +16,7 @@
         <br>
         <br>
         <label for="">Book list</label>
-        <select name="BookId" id="">
+        <select name="BooksId" id="">
             <% dataBook.forEach(el => { %>
                 <option value="<%= el.id  %>"><%=el.title  %></option>
             <%}) %>

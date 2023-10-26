@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-
+const {Op} = require('sequelize')
 const formatRupiah = require('../helpers/helper')
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : "UserId"
       })
       Book.hasMany(models.BooksHasCategories,{
-        foreignKey : "BookId"
+        foreignKey : "BooksId"
       })
 
     }
@@ -25,15 +25,108 @@ module.exports = (sequelize, DataTypes) => {
     get formatRupiah(){
       return formatRupiah(this.price)
     }
+
+    static async bookAdminShowAll(){
+      let data = Book.findAll({
+        where : {
+            stock : {
+                [Op.gt] : 0
+            }
+        },
+        order : [["price", "ASC"], ["stock", "ASC"]]
+    })
+    return data
+    }
+
+    static async bookShowAll(){
+      let data = await Book.findAll({
+        where : {
+            stock : {
+                [Op.gt] : 0
+            }
+        },
+        order : [["price", "ASC"], ["stock", "ASC"]]
+    })
+    return data
+    }
   }
   Book.init({
-    title: DataTypes.STRING,
-    stock: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
-    image: DataTypes.STRING,
-    status: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Title is not null"
+        },
+        notNull: {
+          args: true,
+          msg: "Title is not empty"
+        }
+      }
+    },
+    stock: {
+      type : DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Stock is not null"
+        },
+        notNull: {
+          args: true,
+          msg: "Stock is not empty"
+        }
+      }
+    },
+    price: {
+      type : DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Price is not null"
+        },
+        notNull: {
+          args: true,
+          msg: "Price is not empty"
+        }
+      }
+    },
+    image: {
+      type : DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Image is not null"
+        },
+        notNull: {
+          args: true,
+          msg: "Image is not empty"
+        }
+      }
+    },
+    status: {
+      type : DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Status is not null"
+        },
+        notNull: {
+          args: true,
+          msg: "Status is not empty"
+        }
+      }
+    },
     UserId: DataTypes.INTEGER
-  }, {
+  }, { hooks: {
+    beforeCreate: (instance, options) => {
+      instance.title = instance.title.toUpperCase()
+    },
+  },
     sequelize,
     modelName: 'Book',
   });

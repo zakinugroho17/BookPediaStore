@@ -14,9 +14,11 @@ module.exports = (sequelize, DataTypes) => {
       BooksHasCategories.belongsTo(models.Categories,{
         foreignKey : "CategoriesId"
       })
+      // BooksHasCategories.belongsTo(models.Categories)
       BooksHasCategories.belongsTo(models.Book,{
         foreignKey : "BooksId"
       })
+      // BooksHasCategories.belongsTo(models.Book)
     }
   }
   BooksHasCategories.init({
