@@ -38,15 +38,23 @@ module.exports = (sequelize, DataTypes) => {
     return data
     }
 
-    static async bookShowAll(){
-      let data = await Book.findAll({
+    static async bookShowAll(orderBy){
+      let options = {
         where : {
-            stock : {
-                [Op.gt] : 0
-            }
+          stock : {
+              [Op.gt] : 0
+          }
         },
-        order : [["price", "ASC"], ["stock", "ASC"]]
-    })
+      }
+      if (orderBy) {
+        if (orderBy==='price') {
+          options.order = [["price", "ASC"]]
+        } else {
+          options.order = [["stock", "ASC"]]
+        }
+
+      }
+      let data = await Book.findAll(options)
     return data
     }
   }

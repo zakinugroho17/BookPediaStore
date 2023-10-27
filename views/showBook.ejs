@@ -16,6 +16,10 @@
         </div>
         <div>
             <a href="/books/soldlist" class="btn btn-danger" type="button" style="margin-bottom: 20px;">Sold Book List</a>
+            <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-bottom: 20px;">
+                <a href="/books?orderBy=stock" type="button" class="btn btn-outline-warning">Filter Total Stock</a>
+                <a href="/books?orderBy=price" type="button" class="btn btn-outline-warning">Filter Price Book</a>
+              </div>
         </div>
         <div margin-top: 20px;">
             <table class="table table-bordered table-warning" style="border-color: #EEE9E3;">
@@ -39,7 +43,7 @@
                     <td><%= el.status  %></td>
                     <td>
                         <a href="/books/buy/<%= el.id  %>" type="button" class="btn btn-outline-secondary">Buy</a>
-                        <a href="" type="button" class="btn btn-outline-warning">Detail</a>
+                        <a href="" type="button" class="btn btn-outline-warning" hidden>Detail</a>
                     </td>
                   </tr>
                 <% }) %>

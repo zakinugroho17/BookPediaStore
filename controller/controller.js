@@ -92,16 +92,20 @@ class Controller {
             const user = await User.findOne({
                 where: { email }
             })
-
+            console.log(user);
             res.send(user)
 
-            if (user) {
-                const isTruePassword = bcrypt.compareSync(password, user.password)
-                if (isTruePassword) {
-                    req.session.userId = user.id;
-                    return res.redirect('/user')
-                }
-                else {
+            if(user) {
+                const isValidPassword = bcrypt.compareSync(password, user.password)
+                if(isValidPassword) {
+                    if(user.role === "admin") {
+                        req.session.userId = user.id;
+                        res.redirect('/admin')
+                    } else if(user.role === "User") {
+                        req.session.userId = user.id;
+                        res.redirect('/user')
+                    }
+                } else {
                     const error = "Invalid email or password"
                     return res.redirect(`/login?error=${error}`)
                 }
@@ -164,8 +168,8 @@ class Controller {
 
     static async showBook(req, res) {
         try {
-            const { buyMsg } = req.query
-            const data = await Book.bookShowAll()
+            const { buyMsg, orderBy } = req.query
+            const data = await Book.bookShowAll(orderBy)
             res.render('showBook', { data, buyMsg })
         } catch (error) {
             console.log(error);
