@@ -12,17 +12,6 @@ router.use(
     })
 );
 
-router.use(function (req, res, next) {
-
-    if (!req.session) {
-        const error = "Please login first"
-        res.redirect(`/login?error=${error}`)
-    }
-    else {
-        next()
-    }
-})
-
 // signup and login
 router.get('/', Controller.home)
 router.get('/home', Controller.directHome)
@@ -32,6 +21,18 @@ router.get('/login', Controller.login)
 router.post('/login', Controller.loginProcess)
 router.get('/login/admin', Controller.loginAdmin)
 router.post('/login/admin', Controller.loginAdminProcess)
+
+router.use(function (req, res, next) {
+    console.log(req.session.userId, "<<< kena");
+    if (!req.session.userId) {
+        const error = "Please login first"
+        res.redirect(`/login?error=${error}`)
+    }
+    else {
+        next()
+    }
+})
+
 router.get('/logout', Controller.logout)
 
 // admin session

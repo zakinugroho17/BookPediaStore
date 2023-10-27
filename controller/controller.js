@@ -98,7 +98,7 @@ class Controller {
             if (user) {
                 const isTruePassword = bcrypt.compareSync(password, user.password)
                 if (isTruePassword) {
-                    req.session.id = user.id;
+                    req.session.userId = user.id;
                     return res.redirect('/user')
                 }
                 else {
