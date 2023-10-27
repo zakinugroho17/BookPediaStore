@@ -1,7 +1,155 @@
 const bookshascategories = require('../models/bookshascategories');
 const { Book, BooksHasCategories, Categories, Profile, User } = require('../models/index')
 const { Op } = require('sequelize')
+const bcrypt = require('bcryptjs')
+
 class Controller {
+    static async home(req, res) {
+        try {
+            res.redirect('/home')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async directHome(req, res) {
+        try {
+            res.render('home')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async homeAdmin(req, res) {
+        try {
+            res.render('homeAdmin')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async homeUser(req, res) {
+        try {
+            const data = await User.findOne()
+            res.render('homeUser', {
+                data
+            })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async signUp(req, res) {
+        try {
+            let errorMsg = [];
+            if (req.query.error) {
+                errorMsg = req.query.error.split(',')
+            }
+            res.render('home', {errorMsg})
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async signUpProcess(req, res) {
+        try {
+            const { name, email, password, role } = req.body
+            const hashPassword = await bcrypt.hash(password, 12);
+            await User.create({ name, email, role, password: hashPassword })
+            res.redirect('/login')
+        } catch (error) {
+            if (error.name === "SequelizeValidationError") {
+                let errorMsg = [];
+                error.errors.forEach(err => {
+                    errorMsg.push(err.message)
+                });
+
+            res.redirect(`/signup?error=${errorMsg}`)
+            }
+        }
+    }
+
+    static async login(req, res) {
+        try {
+            const { error } = req.params
+            res.render('login', {
+                error
+            })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async loginProcess(req, res) {
+        try {
+            const { email, password } = req.body
+            const user = await User.findOne({
+                where: { email }
+            })
+
+            res.send(user)
+
+            if (user) {
+                const isTruePassword = bcrypt.compareSync(password, user.password)
+                if (isTruePassword) {
+                    req.session.id = user.id;
+                    return res.redirect('/user')
+                }
+                else {
+                    const error = "Invalid email or password"
+                    return res.redirect(`/login?error=${error}`)
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async loginAdmin(req, res) {
+        try {
+            const { error } = req.params
+            res.render('loginAdmin', {
+                error
+            })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async loginAdminProcess(req, res) {
+        try {
+            const { email, password } = req.body
+            const user = await User.findOne({
+                where: { email }
+            })
+
+            res.send(user)
+
+            if (user) {
+                const isTruePassword = bcrypt.compareSync(password, user.password)
+                if (isTruePassword) {
+                    req.session.id = user.id;
+                    return res.redirect('/admin')
+                }
+                else {
+                    const error = "Invalid email or password"
+                    return res.redirect(`/login?error=${error}`)
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
     static async showBookAdmin(req, res) {
         try {
             const { deleteMsg } = req.query
@@ -185,6 +333,16 @@ class Controller {
         } catch (error) {
             console.log(error);
             res.send(error);
+        }
+    }
+
+    static async logout(req, res) {
+        try {
+            await req.session.destroy()
+            res.redirect('/')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
         }
     }
 }

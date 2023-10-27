@@ -1,46 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Book List</h1>
-    <% if (deleteMsg){ %>
-        <p style="color: red;"> <%= deleteMsg %></p>
-   <% } %>
-    <a href="/admin/books/add"><button style="color: brown;">Add New Book</button></a>
-
-
-    <br>
-    <br>
-    <a href=""><button style="color: rgb(51, 19, 230);">BEST SELER BOOK</button></a>
-    <a href="/books/soldlist"><button style="color: rgb(189, 21, 21);">SOLD BOOK LIST</button></a>
-
-    <table border="2">
-    <tr>
-        <th>Title Book</th>
-        <th>Total Stock</th>
-        <th>Price Book</th>
-        <th>Book Picture</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-
-    <% data.forEach(el =>{ %>
-        <tr>
-            <td><%= el.title  %></td>
-            <td><%= el.stock  %></td>
-            <td><%= el.formatRupiah  %></td>
-            <td><img src="<%= el.image  %>" alt="" style="width: 70px; height: 70px;"></td>
-            <td><%= el.status  %></td>
-            <td>
-                <a href="/admin/books/edit/<%= el.id  %>"><button style="color: blue;">Edit</button></a>
-                <a href="/admin/books/delete/<%= el.id %>"><button style="color: red;">Delete</button></a>
-            </td>
-        </tr>
-    <% }) %>
-</table>
+<%- include('headerAdmin.ejs') %>
+<body style="background-color: #EEE9E3;">
+    <div class="container">
+        <div>
+            <h1>
+                <b>
+                    Book List
+                </b>
+            </h1>
+        </div>
+        <% if (deleteMsg){ %>
+            <div class="alert alert-success" role="alert">
+                <%= deleteMsg %>
+            </div>
+       <% } %>
+        <div>
+            <a href="/admin/books/add" class="btn btn-warning" type="button" style="margin-bottom: 20px;">Add New Book</a>
+            <a href="/admin/categories/add" class="btn btn-warning" type="button" style="margin-bottom: 20px;">Add New Categories</a>
+            <a href="/book/add" class="btn btn-warning" type="button" style="margin-bottom: 20px;" hidden>BEST SELER BOOK</a>
+            <a href="/books/soldlist" class="btn btn-danger" type="button" style="margin-bottom: 20px;" hidden>Sold Book List</a>
+        </div>
+        <div margin-top: 20px;">
+            <table class="table table-bordered table-warning" style="border-color: #EEE9E3;">
+                <thead>
+                  <tr>
+                    <th scope="col">Title Book</th>
+                    <th scope="col">Total Stock</th>
+                    <th scope="col">Price Book</th>
+                    <th scope="col">Book Picture</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <% data.forEach(el =>{ %>
+                  <tr>
+                    <th scope="row"><%= el.title  %></th>
+                    <td><%= el.stock  %></td>
+                    <td><%= el.formatRupiah  %></td>
+                    <td><img src="<%= el.image  %>" alt="" style="width: 70px; height: 70px;"></td>
+                    <td><%= el.status  %></td>
+                    <td>
+                        <a href="/admin/books/edit/<%= el.id  %>" type="button" class="btn btn-outline-secondary">Edit</a>
+                        <a href="/admin/books/delete/<%= el.id %>" type="button" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                  </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
-</html>

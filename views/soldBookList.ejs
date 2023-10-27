@@ -1,33 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Sold Book List</h1>
-
-    <a href="/books"><button style="color: rgb(4, 255, 0); background-color: black;">Book Page</button></a>
-    <table border="1">
-    <tr>
-        <th>Title Book</th>
-        <th>Total Stock</th>
-        <th>Price Book</th>
-        <th>Book Picture</th>
-        <th>Status</th>
-    </tr>
-
-    <% data.forEach(el =>{ %>
-        <tr>
-            <td><%= el.title  %></td>
-            <td><%= el.stock  %></td>
-            <td><%= el.price  %></td>
-            <td><img src="<%= el.image  %>" alt="" style="width: 70px; height: 70px;"></td>
-            <td><%= el.status = "Not Available" %></td>
-            
-        </tr>
-    <% }) %>
-</table>
+<%- include('headerUser.ejs') %>
+<body style="background-color: #EEE9E3;">
+    <div class="container">
+        <div>
+            <h1>
+                <b>
+                    Sold Book List
+                </b>
+            </h1>
+        </div>
+        <div>
+            <a href="/books" class="btn btn-warning" type="button" style="margin-bottom: 20px;">Book Page</a>
+        </div>
+        <div margin-top: 20px;">
+            <table class="table table-bordered table-warning" style="border-color: #EEE9E3;">
+                <thead>
+                  <tr>
+                    <th scope="col">Title Book</th>
+                    <th scope="col">Total Stock</th>
+                    <th scope="col">Price Book</th>
+                    <th scope="col">Book Picture</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <% data.forEach(el =>{ %>
+                  <tr>
+                    <th scope="row"><%= el.title  %></th>
+                    <td><%= el.stock  %></td>
+                    <td><%= el.formatRupiah  %></td>
+                    <td><img src="<%= el.image  %>" alt="" style="width: 70px; height: 70px;"></td>
+                    <td><%= el.status = "Not Available" %></td>
+                  </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
-</html>
