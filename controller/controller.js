@@ -253,8 +253,12 @@ class Controller {
     static async getEditBook(req, res) {
         try {
             const { id } = req.params;
+            let { errors } = req.query
+            if (errors) {
+                errors = errors.split(',')
+            }
             const selectedBook = await Book.findByPk(id);
-            res.render('editBook', { selectedBook });
+            res.render('editBook', { selectedBook, errors });
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -278,8 +282,14 @@ class Controller {
             })
             res.redirect('/admin/books')
         } catch (error) {
-            console.log(error);
-            res.send(error)
+            let errorMsg = []
+            if (error.name === 'SequelizeValidationError') {
+                errorMsg = error.errors.map(err => err.message)
+                const { id } = req.params
+                res.redirect(`/admin/books/edit/${id}?errors=` + errorMsg)
+            } else {
+                res.send(error)
+            }
         }
     }
 

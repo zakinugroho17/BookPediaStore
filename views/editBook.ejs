@@ -1,11 +1,17 @@
 <%- include('headerAdmin.ejs') %>
 <body>
-    <div class="container">
+    <div class="container" style="margin-bottom: 20px;">
         <h1>
             <b>Edit Book Page</b>
         </h1>
     </div>
-
+    <% if(errors){ %>
+      <% errors.forEach(error => { %>
+          <div class="alert alert-danger container" role="alert">
+              <%= error %>
+          </div>
+     <% })  %>
+  <% } %>
     <div class="container">
         <form action="/admin/books/edit/<%= selectedBook.id  %>" method="post">
             <div class="mb-3">
