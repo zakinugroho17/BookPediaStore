@@ -235,7 +235,7 @@ class Controller {
             console.log(req.body);
             const { title, stock, price, image, status } = req.body
             let data = await Book.create({ title, stock, price, image, status, UserId: 1 });
-            res.redirect('/books')
+            res.redirect('/admin/books')
         } catch (error) {
             console.log(error);
 
