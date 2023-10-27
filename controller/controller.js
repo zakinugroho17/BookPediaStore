@@ -63,8 +63,8 @@ class Controller {
             await User.create({ name, email, role, password: hashPassword })
             res.redirect('/login')
         } catch (error) {
+            let errorMsg = [];
             if (error.name === "SequelizeValidationError") {
-                let errorMsg = [];
                 error.errors.forEach(err => {
                     errorMsg.push(err.message)
                 });
@@ -87,13 +87,15 @@ class Controller {
     }
 
     static async loginProcess(req, res) {
+        // console.log(">>>>>>>>>00");
+        // return;
         try {
             const { email, password } = req.body
             const user = await User.findOne({
                 where: { email }
             })
             console.log(user);
-            res.send(user)
+            // res.send(user)
 
             if(user) {
                 const isValidPassword = bcrypt.compareSync(password, user.password)
@@ -101,7 +103,7 @@ class Controller {
                     if(user.role === "admin") {
                         req.session.userId = user.id;
                         res.redirect('/admin')
-                    } else if(user.role === "User") {
+                    } else if(user.role === "user") {
                         req.session.userId = user.id;
                         res.redirect('/user')
                     }
@@ -134,8 +136,6 @@ class Controller {
             const user = await User.findOne({
                 where: { email }
             })
-
-            res.send(user)
 
             if (user) {
                 const isTruePassword = bcrypt.compareSync(password, user.password)
@@ -231,14 +231,10 @@ class Controller {
 
     static async postAddNewBook(req, res) {
         try {
-
-            console.log(req.body);
             const { title, stock, price, image, status } = req.body
             let data = await Book.create({ title, stock, price, image, status, UserId: 1 });
             res.redirect('/admin/books')
         } catch (error) {
-            console.log(error);
-
             let errorMsg = []
             if (error.name === 'SequelizeValidationError') {
                 errorMsg = error.errors.map(err => err.message)
